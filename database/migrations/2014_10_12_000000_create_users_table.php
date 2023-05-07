@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
             $table->string('status');
             $table->integer('period_length');
             $table->integer('cycle_length');
