@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cycles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('status');
-            $table->integer('period_length');
-            $table->integer('cycle_length');
-            $table->rememberToken();
             $table->timestamps();
+            $table->date('cycle_start');
+            $table->date('period_stop');
+            $table->date('ovulation');
+            $table->date('cycle_end');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cycles');
     }
 };
