@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Google\Client;
 use Google\Service\Oauth2;
 use Illuminate\Http\Request;
@@ -35,13 +37,19 @@ class LoginController extends Controller
         $oauth2 = new Oauth2($client);
         $userInfo = $oauth2->userinfo->get();
         
-        // Create or update the user in your database using the profile information
-        $user = User::updateOrCreate(
-            ['email' => $userInfo->email],
-            ['name' => $userInfo->name]
-        );
+        // Check if the user is already registered
+        $user = User::where('email', $userInfo->email)->first();
 
-        // Redirect the user to your application's home page or dashboard
-        return redirect('/');
+        // Redirect the user based on their registration status
+        if ($user) {
+            // User is already registered, redirect to the index page
+            return redirect('/');
+        } else {
+            // User is not registered, redirect to the register page
+            $name = $userInfo->name;
+            $email = $userInfo->email;
+
+            return view('register', compact('name', 'email'));
+        }
     }
 }
