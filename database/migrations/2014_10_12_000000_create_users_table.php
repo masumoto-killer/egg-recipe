@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('status');
-            $table->integer('period_length');
-            $table->integer('cycle_length');
+            $table->string('status')->nullable();
+            $table->integer('period_length')->default(5);
+            $table->integer('cycle_length')->default(28);
             $table->rememberToken();
             $table->timestamps();
         });

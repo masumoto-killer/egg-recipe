@@ -43,7 +43,7 @@ class LoginController extends Controller
         // Redirect the user based on their registration status
         if ($user) {
             // User is already registered, redirect to the index page
-            return redirect('/');
+            return view('index');
         } else {
             // User is not registered, redirect to the register page
             $name = $userInfo->name;

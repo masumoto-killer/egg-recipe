@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +20,21 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
+Route::get('/index', function () {
     return view('index');
-})->middleware('auth.user');
+});
+
+Route::get('/', function () {
+    if (Auth::check()) {
+        // User is authenticated, redirect to /index
+        return redirect('/index');
+    } else {
+        // User is not authenticated, redirect to /welcome
+        return redirect('/welcome');
+    }
+});
 
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
-Route::get('/register', function() {
-    return view('register');
-});
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
