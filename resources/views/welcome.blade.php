@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('app')
 
-        <title>Bloody Circle</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <!-- Styles -->
-        <style>
-
-        </style>
-    </head>
-    <body>
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ env('GOOGLE_CLIENT_ID') }}&redirect_uri=http://localhost:8000/auth/google/callback&scope=email%20profile">Sign in with Google</a>
-    </body>
-</html>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="text-center mt-5">
+                    <img src="{{ asset('path/to/your/logo.png') }}" alt="Logo" width="150">
+                    <h1 class="mt-4">Welcome to Your Website</h1>
+                    <p class="lead">Thank you for visiting our site. Login to access exclusive content.</p>
+                    <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ env('GOOGLE_CLIENT_ID') }}&redirect_uri={{ env('GOOGLE_REDIRECT_URI') }}&scope=email%20profile" class="btn btn-primary">Sign in with Google</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
