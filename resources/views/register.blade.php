@@ -1,39 +1,64 @@
 @extends('app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="name" id="name" class="form-control" value="{{ $name }}" required autofocus>
+                        <div class="form-group row gx-2 mb-4 justify-content-between">
+                            <label for="name" class="col-auto col-form-label">{{ __('Name') }}</label>
+                            <div class="col-9">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ $name }}" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4 justify-content-between">
+                            <label for="email" class="col-auto col-form-label">{{ __('Email') }}</label>
+                            <div class="col-9">
+                                <input type="email" name="email" id="email" class="form-control-plaintext" value="{{ $email }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4 justify-content-between">
+                            <label for="last_period_end" class="col-auto col-form-label">{{ __('Last Period End Date') }}</label>
+                            <div class="col-5">
+                                <input id="last_period_end" type="date" class="form-control" name="last_period_end" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4 justify-content-between">
+                            <label for="average_cycle_length" class="col-auto col-form-label">{{ __('Average Cycle Length') }}</label>
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <input id="average_cycle_length" type="number" class="form-control" name="average_cycle_length" value="28" required>
+                                    <div class="input-group-text">days</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-                                <div class="col-md-6">
-                                    <input type="email" name="email" id="email" class="form-control" value="{{ $email }}" readonly>
+                        <div class="form-group row mb-4 justify-content-between">
+                            <label for="average_period_length" class="col-auto col-form-label">{{ __('Average Period Length') }}</label>
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <input id="average_period_length" type="number" class="form-control" name="average_period_length" value="5" required>
+                                    <div class="input-group-text">days</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
+                        <div class="form-group row mb-0 justify-content-center">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
