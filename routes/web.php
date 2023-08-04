@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -17,22 +17,33 @@ use App\Http\Controllers\RegisterController;
 */
 
 Route::get('/welcome', function () {
-    return view('welcome');
+    $user = auth();
+    if ($user) {
+        return redirect('/index');
+    } else {
+        return view('welcome');
+    }
 });
 
 Route::get('/index', function () {
-    return view('index');
-});
-
-Route::get('/', function () {
-    if (Auth::check()) {
-        // User is authenticated, redirect to /index
-        return redirect('/index');
+    $user = auth();
+    if ($user) {
+        return view('index');
     } else {
-        // User is not authenticated, redirect to /welcome
         return redirect('/welcome');
     }
 });
+
+Route::get('/', function () {
+    $user = auth();
+    if ($user) {
+        return redirect('/index');
+    } else {
+        return redirect('/welcome');
+    }
+});
+
+Route::get('/logout', [LoginController::class, 'logout'] () );
 
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 

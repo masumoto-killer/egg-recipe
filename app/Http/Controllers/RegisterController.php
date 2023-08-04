@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Cycle;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -23,14 +24,25 @@ class RegisterController extends Controller
             'average_period_length' => ['required'],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'cycle_length' => $request->average_cycle_length,
             'period_length' => $request->average_period_length,
         ]);
 
-        
+        $periodStop = $request['last_period_end'];
+        $cycleStart = date('Y-m-d', strtotime("-{$request['average_period_length']} days", strtotime($periodStop)));
+        $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
+        $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
+
+        Cycle::create([
+            'user_id' => $user->id,
+            'cycle_start' => $cycleStart,
+            'period_stop' => $periodStop,
+            'ovulation' => $ovulation,
+            'cycle_end' => $cycleEnd,
+        ]);
 
         // Redirect to the desired page after successful registration
         return view('index');
@@ -39,6 +51,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
     auth()->login($user);
-    return view('index');
+    return route('/index');
     }
 }

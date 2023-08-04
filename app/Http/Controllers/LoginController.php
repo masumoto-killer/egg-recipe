@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Google\Client;
 use Google\Service\Oauth2;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,7 +45,7 @@ class LoginController extends Controller
         // Redirect the user based on their registration status
         if ($user) {
             // User is already registered, redirect to the index page
-            return view('index');
+            return redirect('/index');
         } else {
             // User is not registered, redirect to the register page
             $name = $userInfo->name;
@@ -52,4 +54,11 @@ class LoginController extends Controller
             return view('register', compact('name', 'email'));
         }
     }
+
+    public function logout(User $user)
+    {
+        $user->tokens()->delete();
+        return redirect('/');
+    }
+
 }
