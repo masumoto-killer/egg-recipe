@@ -44,13 +44,14 @@ class RegisterController extends Controller
             'cycle_end' => $cycleEnd,
         ]);
 
+        auth()->login($user);
         // Redirect to the desired page after successful registration
-        return view('index');
+        return redirect('/index');
     }
 
-    protected function registered(Request $request, $user)
-    {
-    auth()->login($user);
-    return route('/index');
-    }
+    // protected function registered(Request $request, $user)
+    // {
+    // auth()->login($user);
+    // return route('/index');
+    // }
 }

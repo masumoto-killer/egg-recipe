@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Google\Client;
 use Google\Service\Oauth2;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +45,7 @@ class LoginController extends Controller
         // Redirect the user based on their registration status
         if ($user) {
             // User is already registered, redirect to the index page
+            auth()->login($user);
             return redirect('/index');
         } else {
             // User is not registered, redirect to the register page
@@ -55,10 +56,28 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(User $user)
+    public static function logout(Request $request)
     {
-        $user->tokens()->delete();
-        return redirect('/');
-    }
+        $user = $request->user();
 
+        if ($user) {
+            $accessToken = $user->token();
+
+            if ($accessToken) {
+                // Revoke the access token
+                Http::post('https://oauth2.provider.com/revoke', [
+                    'token' => $accessToken->id,
+                ]);
+
+                // Revoke the user's refresh tokens if needed
+                $user->tokens->each(function ($token) {
+                    $token->delete();
+                });
+            }
+        }
+
+        Auth::logout(); // Clear the local session or cookies
+
+        return redirect('/welcome');
+    }
 }

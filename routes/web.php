@@ -17,8 +17,7 @@ use App\Http\Controllers\RegisterController;
 */
 
 Route::get('/welcome', function () {
-    $user = auth();
-    if ($user) {
+    if (auth()->check()) {
         return redirect('/index');
     } else {
         return view('welcome');
@@ -26,8 +25,7 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/index', function () {
-    $user = auth();
-    if ($user) {
+    if (auth()->check()) {
         return view('index');
     } else {
         return redirect('/welcome');
@@ -35,15 +33,17 @@ Route::get('/index', function () {
 });
 
 Route::get('/', function () {
-    $user = auth();
-    if ($user) {
+    if (auth()->check()) {
         return redirect('/index');
     } else {
         return redirect('/welcome');
     }
 });
 
-Route::get('/logout', [LoginController::class, 'logout'] () );
+Route::get('/logout', function () {
+    auth()->logout(); // Clear the local session or cookies
+    return redirect('/welcome');
+});
 
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
