@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use App\Models\Cycle;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -46,6 +47,8 @@ class LoginController extends Controller
         if ($user) {
             // User is already registered, redirect to the index page
             auth()->login($user);
+            // Fetch the authenticated user and their latest cycle (if available)
+            $latestCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
             return redirect('/index');
         } else {
             // User is not registered, redirect to the register page

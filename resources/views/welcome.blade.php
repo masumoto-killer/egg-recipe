@@ -4,7 +4,7 @@
     <div class="container d-flex align-items-center justify-content-center vh-100">
         <div class="col-md-8">
             <div class="text-center">
-                <img src="{{ asset('/logo.jpg') }}" alt="Logo" width="150" class="py-3">
+                <img src="{{ asset('/logo.png') }}" alt="Logo" width="150" class="py-3">
                 <br>
                 <h1>Welcome to Bloody Circle</h1>
                 <p class="lead">Thank you for visiting our site. Login to access exclusive content.</p>

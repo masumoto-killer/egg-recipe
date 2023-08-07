@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand mb-1 h1" href="/">
-            <img src="{{ asset('/logo.jpg') }}" alt="Logo" height="40" class="px-2">Bloody Circle</a>
+            <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Bloody Circle</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
