@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CycleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/index', [CycleController::class, 'index'])->name('index');
+Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile');
 
 Route::get('/', function () {
     if (auth()->check()) {
