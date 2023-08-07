@@ -49,9 +49,4 @@ class RegisterController extends Controller
         return redirect('/index');
     }
 
-    // protected function registered(Request $request, $user)
-    // {
-    // auth()->login($user);
-    // return route('/index');
-    // }
 }
