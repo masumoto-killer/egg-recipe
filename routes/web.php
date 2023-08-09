@@ -25,16 +25,12 @@ Route::get('/welcome', function () {
     }
 });
 
-Route::get('/index', [CycleController::class, 'index'])->name('index');
-Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile');
+Route::get('/index', [CycleController::class, 'index'])->name('index')->middleware('auth.user');
+Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile')->middleware('auth.user');
 
 Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect('/index');
-    } else {
-        return redirect('/welcome');
-    }
-});
+    return redirect('/index');
+})->middleware('auth.user');
 
 Route::get('/logout', function () {
     auth()->logout(); // Clear the local session or cookies

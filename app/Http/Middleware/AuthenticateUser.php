@@ -16,9 +16,11 @@ class AuthenticateUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect('/welcome');
+        if (auth()->check()) {
+            return $next($request);
         }
-        return $next($request);
+        else {
+        return redirect('/welcome');
+        }
     }
 }

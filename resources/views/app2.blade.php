@@ -10,23 +10,23 @@
 </head>
 <body>
     <!-- Add your navigation bar or header content here -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand mb-1 h1" href="/">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light px-5">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="/">
             <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Bloody Circle</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav container-fluid">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">Profile</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ms-auto">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
 

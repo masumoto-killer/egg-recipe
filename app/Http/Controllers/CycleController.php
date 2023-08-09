@@ -13,6 +13,7 @@ class CycleController extends Controller
     {
         // Get the authenticated user
         $user = auth()->user();
+    
         // Get the latest cycle of the user
         $latestCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
 
