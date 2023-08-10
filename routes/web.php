@@ -17,6 +17,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/', function () {
+    return redirect('/index');
+})->middleware('auth.user');
+
 Route::get('/welcome', function () {
     if (auth()->check()) {
         return redirect('/index');
@@ -25,19 +29,15 @@ Route::get('/welcome', function () {
     }
 });
 
-Route::get('/index', [CycleController::class, 'index'])->name('index')->middleware('auth.user');
-Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile')->middleware('auth.user');
+Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
-Route::get('/', function () {
-    return redirect('/index');
-})->middleware('auth.user');
-
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/logout', function () {
     auth()->logout(); // Clear the local session or cookies
     return redirect('/welcome');
 });
 
-Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
-
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/index', [CycleController::class, 'index'])->name('index')->middleware('auth.user');
+Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile')->middleware('auth.user');
+Route::post('/update-cycle', [CycleController::class, 'updateCycle'])->name('update.cycle')->middleware('auth.user');

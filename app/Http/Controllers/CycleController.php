@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cycle;
@@ -14,11 +15,11 @@ class CycleController extends Controller
         // Get the authenticated user
         $user = auth()->user();
     
-        // Get the latest cycle of the user
-        $latestCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
+        // Get the last cycle of the user
+        $lastCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
 
         // Calculate the new cycle's start and end dates based on the formula
-        $newCycleStart = $latestCycle ? Carbon::parse($latestCycle->cycle_end)->addDay() : now();
+        $newCycleStart = $lastCycle ? Carbon::parse($lastCycle->cycle_end)->addDay() : now();
         $newCycleEnd = Carbon::parse($newCycleStart)->addDays($user->cycle_length);
 
         // Calculate the period stop date
@@ -40,36 +41,82 @@ class CycleController extends Controller
         return $cycle;
     }
 
+    public function updateCycle(Request $request)
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+        $currentDate = Carbon::today();
+
+        // Get the current and next cycles of the user
+        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
+        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', $currentDate)->orderBy('ovulation')->first();
+
+        // Update the period_stop and cycle_end of the current cycle based on user input
+        if ($currentCycle) {
+            $currentCycle->update([
+                'period_stop' => $request->input('period_stop'),
+                'cycle_end' => $request->input('cycle_end'),
+            ]);
+
+            // Update user's info using average values from recent cycles
+            $recentCycles = Cycle::where('user_id', $user->id)->orderBy('cycle_end', 'desc')->take(3)->get();
+            $periodLengthSum = 0;
+            $cycleLengthSum = 0;
+            foreach ($recentCycles as $cycle) {
+                $periodLengthSum += $cycle->period_length;
+                $cycleLengthSum += $cycle->cycle_length;
+            }
+            $user->period_length = round($periodLengthSum / 3);
+            $user->cycle_length = round($cycleLengthSum / 3);
+            $user->save();
+
+            // Update next cycle's info based on updated current cycle's info
+            if ($nextCycle) {
+                $nextCycle->update([
+                    'cycle_start' => $currentCycle->cycle_end,
+                    'period_stop' => $currentCycle->cycle_end->addDays($user->period_length),
+                    'ovulation' => $currentCycle->cycle_end->subDays(14),
+                    'cycle_end' => $currentCycle->cycle_end->addDays($user->cycle_length),
+                ]);
+            }
+        }
+
+        // Redirect back
+        return redirect()->back();
+    }
+
     public function index(User $user)
     {
         if (!$user) {
             return redirect('welcome');
         }
-        // Get the authenticated user
+        // Get the authenticated user and current date
         $user = auth()->user();
-        // Fetch the authenticated user and their latest cycle (if available)
-        $latestCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
-        // Check if the latest cycle's ovulation date is in the past
-        while ($latestCycle && Carbon::today()->greaterThan($latestCycle->ovulation)) {
-            // Create a new cycle for the user and update the latestCycle variable
-            $latestCycle = $this->createCycle($user);
-        }
-        $currentCycle = Cycle::where('user_id', $user->id)->where('ovulation', '<=', Carbon::today())->latest('cycle_end')->first();
-        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', Carbon::today())->latest('cycle_end')->first();
-
         $currentDate = Carbon::today();
-        if ($currentDate->between($currentCycle->cycle_start, $currentCycle->period_stop)) {
-            $user->status = 'In Period';
-        } elseif ($currentDate->between($currentCycle->period_stop, $nextCycle->ovulation)) {
-            $user->status = 'Before Ovulation';
-        } elseif ($currentDate->between($nextCycle->ovulation, $currentCycle->cycle_end)) {
-            $user->status = 'Before Period';
-        } elseif ($currentDate->equalTo($currentCycle->cycle_start)) {
+
+        // Fetch the authenticated user and their last cycle (if available)
+        $lastCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
+        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
+        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', $currentDate)->orderBy('ovulation')->first();
+
+        // Check if the last cycle's ovulation date is in the past
+        while ($lastCycle && Carbon::parse($lastCycle->ovulation)->diffInDays($currentDate) < 300) {
+            // Create a new cycle for the user and update the lastCycle variable
+            $lastCycle = $this->createCycle($user);
+        }
+
+        if ($currentDate->equalTo($currentCycle->cycle_start)) {
             $user->status = 'Period Start';
         } elseif ($currentDate->equalTo($currentCycle->cycle_end)) {
             $user->status = 'Period End';
         } elseif ($currentDate->equalTo($nextCycle->ovulation)) {
             $user->status = 'Ovulation';
+        } elseif ($currentDate->between($currentCycle->cycle_start, $currentCycle->period_stop)) {
+            $user->status = 'In Period';
+        } elseif ($currentDate->between($currentCycle->period_stop, $nextCycle->ovulation)) {
+            $user->status = 'Before Ovulation';
+        } elseif ($currentDate->between($nextCycle->ovulation, $currentCycle->cycle_end)) {
+            $user->status = 'Before Period';
         }
         $user->save();
 
@@ -78,6 +125,7 @@ class CycleController extends Controller
                 'user' => $user,
                 'currentCycle' => $currentCycle,
                 'nextCycle' => $nextCycle,
+                'lastCycle' => $lastCycle
             ]);
         }
 }
