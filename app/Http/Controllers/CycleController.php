@@ -49,7 +49,8 @@ class CycleController extends Controller
 
         // Get the current and next cycles of the user
         $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
-        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', $currentDate)->orderBy('ovulation')->first();
+        $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->first();
+        $nextCycles = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->get();
 
         // Update the period_stop and cycle_end of the current cycle based on user input
         if ($currentCycle) {
@@ -79,6 +80,19 @@ class CycleController extends Controller
                     'cycle_end' => $currentCycle->cycle_end->addDays($user->cycle_length),
                 ]);
             }
+            foreach ($nextCycles as $cycle) {
+                $nextCycleStart = $cycle->cycle_end;
+                $nextPeriodStop = $nextCycleStart->addDays($user->period_length);
+                $nextOvulation = $nextCycleStart->subDays(14);
+                $nextCycleEnd = $nextCycleStart->addDays($user->cycle_length);
+        
+                $cycle->update([
+                    'cycle_start' => $nextCycleStart,
+                    'period_stop' => $nextPeriodStop,
+                    'ovulation' => $nextOvulation,
+                    'cycle_end' => $nextCycleEnd,
+                ]);
+            }                
         }
 
         // Redirect back
@@ -93,36 +107,39 @@ class CycleController extends Controller
         // Get the authenticated user and current date
         $user = auth()->user();
         $currentDate = Carbon::today();
+        $cycles = Cycle::where('user_id', $user->id)->get();
 
         // Fetch the authenticated user and their last cycle (if available)
         $lastCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
-        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
-        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', $currentDate)->orderBy('ovulation')->first();
 
         // Check if the last cycle's ovulation date is in the past
-        while ($lastCycle && Carbon::parse($lastCycle->ovulation)->diffInDays($currentDate) < 300) {
+        while ($lastCycle && Carbon::parse($lastCycle->ovulation)->diffInDays($currentDate) < 180) {
             // Create a new cycle for the user and update the lastCycle variable
             $lastCycle = $this->createCycle($user);
         }
 
+        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
+        $nextCycle = Cycle::where('user_id', $user->id)->where('ovulation', '>', $currentDate)->orderBy('ovulation')->first();
+
         if ($currentDate->equalTo($currentCycle->cycle_start)) {
-            $user->status = 'Period Start';
+            $user->status = '0';
         } elseif ($currentDate->equalTo($currentCycle->cycle_end)) {
-            $user->status = 'Period End';
+            $user->status = '2';
         } elseif ($currentDate->equalTo($nextCycle->ovulation)) {
-            $user->status = 'Ovulation';
+            $user->status = '4';
         } elseif ($currentDate->between($currentCycle->cycle_start, $currentCycle->period_stop)) {
-            $user->status = 'In Period';
+            $user->status = '1';
         } elseif ($currentDate->between($currentCycle->period_stop, $nextCycle->ovulation)) {
-            $user->status = 'Before Ovulation';
+            $user->status = '3';
         } elseif ($currentDate->between($nextCycle->ovulation, $currentCycle->cycle_end)) {
-            $user->status = 'Before Period';
+            $user->status = '5';
         }
         $user->save();
 
         return view(
             'index',[
                 'user' => $user,
+                'cycles' => $cycles,
                 'currentCycle' => $currentCycle,
                 'nextCycle' => $nextCycle,
                 'lastCycle' => $lastCycle

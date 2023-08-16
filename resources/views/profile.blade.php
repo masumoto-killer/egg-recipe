@@ -1,16 +1,15 @@
 @extends('app2')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="text-center mt-5">
-                    <h2>User Profile:</h2>
-                    <p>Name: {{ $user->name }}</p>
+    <div class="container d-flex align-items-start justify-content-center mt-4 flex-wrap">
+        <div class="col-lg-8 col-md-12">
+            <div class="text-center card">
+                <div class="card-header">{{ ('Thông tin người dùng') }}</div>
+                <div class="card-body">
+                    <p>Tên: {{ $user->name }}</p>
                     <p>Email: {{ $user->email }}</p>
-                    <p>Status: {{ $user->status }}</p>
-                    <p>Average Cycle Length: {{ $user->cycle_length }}</p>
-                    <p>Average Period Length: {{ $user->period_length }}</p>
+                    <p>Số ngày hành kinh trung bình: {{ $user->period_length }}</p>
+                    <p class="mb-0">Độ dài trung bình của chu kỳ kinh nguyệt: {{ $user->cycle_length }}</p>
                 </div>
             </div>
         </div>
