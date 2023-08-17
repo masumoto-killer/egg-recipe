@@ -54,10 +54,12 @@ class CycleController extends Controller
 
         // Update the period_stop and cycle_end of the current cycle based on user input
         if ($currentCycle) {
-            $currentCycle->update([
-                'period_stop' => $request->input('period_stop'),
-                'cycle_end' => $request->input('cycle_end'),
-            ]);
+            if ($request->has('period_stop')) {
+                $currentCycle->update(['period_stop' => $request->input('period_stop'),]);
+            }
+                else {
+                $currentCycle->update(['cycle_end' => $request->input('cycle_end'),]);
+            };
 
             // Update user's info using average values from recent cycles
             $recentCycles = Cycle::where('user_id', $user->id)->orderBy('cycle_end', 'desc')->take(3)->get();

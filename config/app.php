@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Bloody Circle'),
+    'name' => env('APP_NAME', 'Egg Recipe'),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ config('app.name', 'Bloody Circle') }}</title>
+    <title>{{ config('app.name', 'Egg Recipe') }}</title>
     <!-- Include CSS and other meta tags -->
     <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,13 @@
 </head>
 <body>
     <!-- Add your navigation bar or header content here -->
-
+    <nav class="navbar navbar-expand-sm navbar-light bg-light px-5">
+        <div class="container-fluid">
+            <div class="navbar-brand mb-0 h1" href="">
+                <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Egg Recipe
+            </div>
+        </div>
+    </nav>
     <div class="container">
         @yield('content')
     </div>

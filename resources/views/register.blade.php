@@ -4,13 +4,13 @@
     <div class="container d-flex align-items-center justify-content-center vh-100">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Đăng ký') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row gx-2 mb-4 justify-content-between">
-                            <label for="name" class="col-auto col-form-label">{{ __('Name') }}</label>
+                            <label for="name" class="col-auto col-form-label">{{ __('Teen') }}</label>
                             <div class="col-lg-9 col-md-12 col-sm-12">
                                 <input type="text" name="name" id="name" class="form-control" value="{{ $name }}" required autofocus>
                             </div>

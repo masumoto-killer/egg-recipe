@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ config('app.name', 'Bloody Circle') }}</title>
+    <title>{{ config('app.name', 'Egg Recipe') }}</title>
     <!-- Include CSS and other meta tags -->
     <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +12,9 @@
     <!-- Add your navigation bar or header content here -->
     <nav class="navbar navbar-expand-sm navbar-light bg-light px-5">
         <div class="container-fluid">
-            <a class="navbar-brand mb-0 h1" href="/">
-            <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Bloody Circle</a>
+            <div class="navbar-brand mb-0 h1" href="">
+                <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Egg Recipe
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
