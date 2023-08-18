@@ -15,5 +15,4 @@ npm-debug.log
 yarn-error.log
 /.fleet
 /.idea
-/.vscoderr
-.rr.yaml
+/.vscode
