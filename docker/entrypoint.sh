@@ -14,6 +14,7 @@ php artisan cache:clear
 composer dump-autoload
 php artisan view:clear
 php artisan route:clear
+chown -R www-data storage/
 
 service nginx start
 
