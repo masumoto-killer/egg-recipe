@@ -8,8 +8,8 @@
                 <div class="card-body">
                     <p>Tên: {{ $user->name }}</p>
                     <p>Email: {{ $user->email }}</p>
-                    <p>Số ngày hành kinh trung bình: {{ $user->period_length }}</p>
-                    <p class="mb-0">Độ dài trung bình của chu kỳ kinh nguyệt: {{ $user->cycle_length }}</p>
+                    <p>Số ngày vỡ trứng trung bình: {{ $user->period_length }}</p>
+                    <p class="mb-0">Độ dài trung bình của chu kỳ rớt trứng: {{ $user->cycle_length }}</p>
                 </div>
             </div>
         </div>
