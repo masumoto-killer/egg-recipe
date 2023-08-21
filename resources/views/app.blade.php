@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light px-5">
         <div class="container-fluid">
             <div class="navbar-brand mb-0 h1" href="">
-                <img src="{{ asset('/logo.png') }}" alt="Logo" height="40" class="px-2">Egg Recipe
+                <img src="{{ asset('/logo.png') }}" alt="Logo" height="60" class="px-2">Egg Recipe
             </div>
         </div>
     </nav>

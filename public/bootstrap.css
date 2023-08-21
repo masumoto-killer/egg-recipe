@@ -3766,12 +3766,12 @@ textarea.form-control-lg {
 
 .navbar {
   --bs-navbar-padding-x: 0;
-  --bs-navbar-padding-y: 0.5rem;
+  --bs-navbar-padding-y: 0;
   --bs-navbar-color: rgba(255, 255, 255);
   --bs-navbar-hover-color: #ffebf4;
   --bs-navbar-disabled-color: rgb(255, 255, 255);
   --bs-navbar-active-color: #ffffff;
-  --bs-navbar-brand-padding-y: 0.3125rem;
+  --bs-navbar-brand-padding-y: 0;
   --bs-navbar-brand-margin-end: 1rem;
   --bs-navbar-brand-font-size: 1.5rem;
   --bs-navbar-brand-color: rgba(255, 255, 255);
