@@ -35,7 +35,7 @@
 
                         <div class="form-group row mb-4 justify-content-between">
                             <label for="average_cycle_length" class="col-auto col-form-label">
-                                {{ __('Độ dài trung bình của một chu kỳ rớt trứng:') }}</label>
+                                {{ __('Chu kỳ rớt trứng bình thường:') }}</label>
                             <div class="col-lg-5 col-md-12 col-sm-12">
                                 <div class="input-group">
                                     <input id="average_cycle_length" type="number" class="form-control" name="average_cycle_length" value="28" required>
@@ -46,7 +46,7 @@
 
                         <div class="form-group row mb-4 justify-content-between">
                             <label for="average_period_length" class="col-auto col-form-label">
-                                {{ __('Độ dài trung bình của một lần vỡ trứng:') }}</label>
+                                {{ __('Số ngày vỡ trứng bình thường:') }}</label>
                             <div class="col-lg-5 col-md-12 col-sm-12">
                                 <div class="input-group">
                                     <input id="average_period_length" type="number" class="form-control" name="average_period_length" value="5" required>
