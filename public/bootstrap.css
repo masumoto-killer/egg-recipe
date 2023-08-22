@@ -3775,7 +3775,7 @@ textarea.form-control-lg {
   --bs-navbar-brand-margin-end: 1rem;
   --bs-navbar-brand-font-size: 1.5rem;
   --bs-navbar-brand-color: rgba(255, 255, 255);
-  --bs-navbar-brand-hover-color: #ffebf4;
+  --bs-navbar-brand-hover-color: #ffffff;
   --bs-navbar-nav-link-padding-x: 0.5rem;
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
@@ -4735,8 +4735,8 @@ textarea.form-control-lg {
 
 .alert-warning {
   --bs-alert-color: #664d03;
-  --bs-alert-bg: #fff3cd;
-  --bs-alert-border-color: #ffecb5;
+  --bs-alert-bg: rgb(255, 255, 170);
+  --bs-alert-border-color: rgb(242, 242, 89);
 }
 .alert-warning .alert-link {
   color: #523e02;

@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container d-flex align-items-center justify-content-center mt-4">
-        <div class="col-lg-5 col-md-10 col-sm-">
+        <div class="col-lg-8 col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('Đăng ký') }}</div>
+                <div class="card-header text-center">{{ __('Đăng ký') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
