@@ -1,4 +1,4 @@
-version: 0.0
+version: 0.1
 os: linux
 files:
   - source: /
@@ -21,3 +21,4 @@ hooks:
   #   - location: scripts/stop_server.sh
   #     timeout: 300
   #     runas: root
+  
