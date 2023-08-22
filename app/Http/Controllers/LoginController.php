@@ -49,13 +49,13 @@ class LoginController extends Controller
             auth()->login($user);
             // Fetch the authenticated user and their latest cycle (if available)
             $latestCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
-            return redirect('/index');
+            return redirect()->route('index');
         } else {
             // User is not registered, redirect to the register page
             $name = $userInfo->name;
             $email = $userInfo->email;
 
-            return view('register', compact('name', 'email'));
+            return redirect()->route('register', ['name'=>$name, 'email'=>$email]);
         }
     }
 

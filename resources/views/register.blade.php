@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="container d-flex align-items-center justify-content-center mt-4">
+    <div class="container d-flex align-items-start justify-content-center mt-4">
         <div class="col-lg-8 col-md-10">
             <div class="card">
                 <div class="card-header text-center">{{ __('Đăng ký') }}</div>
@@ -13,7 +13,7 @@
                             <label for="name" class="col-auto col-form-label">
                                 {{ __('Tên') }}</label>
                             <div class="col-lg-9 col-md-12 col-sm-12">
-                                <input type="text" name="name" id="name" class="form-control" value="{{ $name }}" required autofocus>
+                                <input type="text" name="name" id="name" class="form-control" value="@php echo $_GET['name'] @endphp" required autofocus>
                             </div>
                         </div>
 
@@ -21,7 +21,7 @@
                             <label for="email" class="col-auto col-form-label">
                                 {{ __('Email') }}</label>
                             <div class="col-lg-9 col-md-12 col-sm-12">
-                                <input type="email" name="email" id="email" class="form-control-plaintext" value="{{ $email }}" readonly>
+                                <input type="email" name="email" id="email" class="form-control-plaintext" value="@php echo $_GET['email'] @endphp" readonly>
                             </div>
                         </div>
 
@@ -68,3 +68,9 @@
         </div>
     </div>
 @endsection
+
+<script>
+    window.onload = function(e){ 
+        window.history.pushState({}, document.title, window.location.pathname);
+    }
+</script>
