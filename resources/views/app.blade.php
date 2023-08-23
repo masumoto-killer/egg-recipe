@@ -15,9 +15,22 @@
             <div class="navbar-brand mb-0 h1" href="">
                 <img src="{{ asset('/logo.png') }}" alt="Logo" height="60" class="px-2">Egg Recipe
             </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav container-fluid">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Trang chủ</a>
+                    </li>
+
+                    <!-- Add more navbar items here -->
+                </ul>
+            </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         @yield('content')
     </div>
 

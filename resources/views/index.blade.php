@@ -1,7 +1,7 @@
 @extends('app2')
 
 @section('content')
-    <div class="container d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
+    <div class="container-md d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
         <div class="col-lg-4 col-md-12 text-center">
             <div class="alert alert-warning" role="alert">
                 <h4>Xin chào {{ $user -> name }}</h4>
@@ -21,20 +21,20 @@
                     @php
                         $message = "Có thể kết thúc vỡ trứng hôm nay";
                     @endphp
-                @elseif($status === '4')
+                {{-- @elseif($status === '4')
                     @php
                         $message = "Hôm nay có thể là ngày rớt trứng";
-                    @endphp
+                    @endphp --}}
                 @elseif($status === '1')
                     @php
                         $daysLeft = \Illuminate\Support\Carbon::parse($currentCycle->period_stop)->diffInDays($currentDate);
                         $message = "Có thể kết thúc vỡ trứng sau $daysLeft ngày.";
                     @endphp
-                @elseif($status === '3')
+                {{-- @elseif($status === '3')
                     @php
                         $daysLeft = \Illuminate\Support\Carbon::parse($nextCycle->ovulation)->diffInDays($currentDate);
                         $message = "$daysLeft ngày nữa có thể là ngày rớt trứng";
-                    @endphp
+                    @endphp --}}
                 @elseif($status === '5')
                     @php
                         $daysLeft = \Illuminate\Support\Carbon::parse($nextCycle->cycle_start)->diffInDays($currentDate);
@@ -45,7 +45,7 @@
             </div>
 
             <form action="{{ route('update.cycle') }}" method="post" class="card my-4">
-                <div class="card-header">{{ ('Cập nhật chu kỳ rớt trứng') }}</div>
+                <div class="card-header">{{ ('Cập nhật chu kỳ') }}</div>
                 <div class="card-body">
                     @csrf
                     <div class="row justify-content-around align-items-center gy-2">
@@ -130,25 +130,32 @@
                                 dayHeaderFormat: {
                                     weekday: 'short',
                                 },
-                                monthStartFormat: {
-                                    month: 'short',
-                                    day: 'numeric',
+                                titleFormat: {
+                                    month: 'numeric',
+                                    year: 'numeric',
                                 },
+                                buttonText: {
+                                    today: 'Hôm nay',
+                                },
+                                // monthStartFormat: {
+                                //     month: 'short',
+                                //     day: 'numeric',
+                                // },
                                 headerToolbar: {
-                                    start: 'prevYear',
+                                    start: 'today',
                                     center: 'title',
-                                    end: 'nextYear',
+                                    end: 'prev,next',
                                 },
-                                buttonIcons: {
-                                    prevYear: 'caret-left-fill',
-                                    nextYear: 'caret-right-fill',
-                                },
+                                // buttonIcons: {
+                                //     prevYear: 'caret-left-fill',
+                                //     nextYear: 'caret-right-fill',
+                                // },
                                 themeSystem: 'bootstrap5',
-                                initialView: "dayGridYear",
+                                initialView: "dayGridMonth",
                                 locale: 'vi',
                                 firstDay: '1',
-                                aspectRatio: '1.2',
                                 windowResizeDelay: '0',
+                                height: 'auto',
                             });
                             calendar.render();
                         });

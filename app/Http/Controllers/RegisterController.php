@@ -46,7 +46,7 @@ class RegisterController extends Controller
 
         auth()->login($user);
         // Redirect to the desired page after successful registration
-        return redirect('/index');
+        return redirect()->route('index');
     }
 
 }

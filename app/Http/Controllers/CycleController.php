@@ -49,8 +49,8 @@ class CycleController extends Controller
 
         // Get the current and next cycles of the user
         $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
-        $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->first();
-        $nextCycles = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->get();
+        // $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->first();
+        // $nextCycles = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->get();
 
         // Update the period_stop and cycle_end of the current cycle based on user input
         if ($currentCycle) {
@@ -62,7 +62,7 @@ class CycleController extends Controller
             };
 
             // Update user's info using average values from recent cycles
-            $recentCycles = Cycle::where('user_id', $user->id)->orderBy('cycle_end', 'desc')->take(3)->get();
+            $recentCycles = Cycle::where('user_id', $user->id)->orderBy('cycle_end','desc')->take(3)->get();
             // $user->period_length = round(array_sum($recentCycles->period_length) / count($recentCycles));
             // $user->cycle_length = round(array_sum($recentCycles->cycle_length) / count($recentCycles));
             $periodLengthSum = 0;
@@ -76,33 +76,32 @@ class CycleController extends Controller
             $user->period_length = round($periodLengthSum / $count);
             $user->cycle_length = round($cycleLengthSum / $count);
             $user->save();
-
-            // Update next cycle's info based on updated current cycle's info
-            if ($nextCycle) {
-                $nextCycle->update([
-                    'cycle_start' => $currentCycle->cycle_end,
-                    'period_stop' => Carbon::parse($currentCycle->cycle_end)->addDays($user->period_length),
-                    'ovulation' => Carbon::parse($currentCycle->cycle_end)->subDays(14),
-                    'cycle_end' => Carbon::parse($currentCycle->cycle_end)->addDays($user->cycle_length),
-                ]);
-            }
-            foreach ($nextCycles as $cycle) {
-                $nextCycleStart = $cycle->cycle_end;
-                $nextPeriodStop = Carbon::parse($nextCycleStart)->addDays($user->period_length);
-                $nextOvulation = Carbon::parse($nextCycleStart)->subDays(14);
-                $nextCycleEnd = Carbon::parse($nextCycleStart)->addDays($user->cycle_length);
-        
-                $cycle->update([
-                    'cycle_start' => $nextCycleStart,
-                    'period_stop' => $nextPeriodStop,
-                    'ovulation' => $nextOvulation,
-                    'cycle_end' => $nextCycleEnd,
-                ]);
-            }                
         }
 
-        // Redirect back
-        return redirect()->back();
+            // Update next cycle's info based on updated current cycle's info
+            // $nextCycle->update([
+            //     'cycle_start' => $currentCycle->cycle_end,
+            //     'period_stop' => Carbon::parse($currentCycle->cycle_end)->addDays($user->period_length),
+            //     'ovulation' => Carbon::parse($currentCycle->cycle_end)->subDays(14),
+            //     'cycle_end' => Carbon::parse($currentCycle->cycle_end)->addDays($user->cycle_length)->subDays(1),
+            // ]);
+        //     foreach ($nextCycles as $cycle) {
+        //         $previousCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '<', $cycle->cycle_start)->orderBy('cycle_start','desc')->first();
+        //         $nextCycleStart = Carbon::parse($previousCycle->cycle_end);
+        //         $nextPeriodStop = Carbon::parse($nextCycleStart)->addDays($user->period_length);
+        //         $nextOvulation = Carbon::parse($nextCycleStart)->subDays(14);
+        //         $nextCycleEnd = Carbon::parse($nextCycleStart)->addDays($user->cycle_length);
+        
+        //         $cycle->update([
+        //             'cycle_start' => $nextCycleStart,
+        //             'period_stop' => $nextPeriodStop,
+        //             'ovulation' => $nextOvulation,
+        //             'cycle_end' => $nextCycleEnd,
+        //         ]);
+        //     }                
+        // }
+
+        return redirect()->route('index');
     }
 
     public function index(User $user)
@@ -117,6 +116,7 @@ class CycleController extends Controller
 
         // Fetch the authenticated user and their last cycle (if available)
         $lastCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
+        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>', $currentDate)->orderBy('cycle_end')->first();
 
         // Check if the last cycle's ovulation date is in the past
         while ($lastCycle && Carbon::parse($lastCycle->ovulation)->diffInDays($currentDate) < 180) {
@@ -124,7 +124,6 @@ class CycleController extends Controller
             $lastCycle = $this->createCycle($user);
         }
 
-        $currentCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '>=', $currentDate)->orderBy('cycle_end')->first();
         $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $currentDate)->orderBy('cycle_start')->first();
 
         if ($currentDate->equalTo($currentCycle->cycle_start)) {
@@ -149,6 +148,7 @@ class CycleController extends Controller
                 'currentCycle' => $currentCycle,
                 'nextCycle' => $nextCycle,
                 'lastCycle' => $lastCycle
-            ]);
-        }
+            ]
+        );
+    }
 }
