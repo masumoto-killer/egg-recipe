@@ -1,8 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: ./
+  - source: /
     destination: /var/www/html/egg-recipe/
+    file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
