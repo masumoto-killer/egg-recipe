@@ -1,9 +1,13 @@
-version: 0.1
+version: 0.0
 os: linux
 files:
   - source: /
     destination: /var/www/html/egg-recipe/
 hooks:
+  # ApplicationStop:
+  #   - location: scripts/stop_server.sh
+  #     timeout: 300
+  #     runas: root
   # BeforeInstall:
   #   - location: scripts/install_dependencies.sh
   #     timeout: 300
@@ -17,8 +21,8 @@ hooks:
   #   - location: scripts/create_test_db.sh
   #     timeout: 300
   #     runas: root
-  # ApplicationStop:
-  #   - location: scripts/stop_server.sh
+    # ValidateService:
+  #   - location: scripts/change_permissions.sh
   #     timeout: 300
   #     runas: root
-  
+
