@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container d-flex align-items-start justify-content-center mt-4">
-        <div class="col-lg-8 col-md-10">
+        <div class="col-xl-6 col-lg-8 col-md-10">
             <div class="card">
                 <div class="card-header text-center">{{ __('Đăng ký') }}</div>
                 <div class="card-body">

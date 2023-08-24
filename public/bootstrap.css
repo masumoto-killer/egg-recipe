@@ -2261,10 +2261,10 @@ textarea.form-control-lg {
 }
 
 .form-check-input {
-  width: 1em;
-  height: 1em;
+  width: 1.25em;
+  height: 1.25em;
   margin-top: 0.25em;
-  vertical-align: top;
+  vertical-align: sub;
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
