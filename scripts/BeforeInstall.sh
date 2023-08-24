@@ -1,5 +1,3 @@
 #!/bin/bash
 
-cd /var/www/html/egg-recipe
-docker-compose down
-sudo fuser -n tcp -k 80
+sudo rm -rf /opt/codedeploy-agent/deployment-root/deployment-instructions/*
