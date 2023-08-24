@@ -128,16 +128,12 @@ class CycleController extends Controller
 
         if ($currentDate->equalTo($currentCycle->cycle_start)) {
             $user->status = '0';
-        } elseif ($currentDate->equalTo($currentCycle->cycle_end)) {
+        } elseif ($currentDate->equalTo($currentCycle->period_stop)) {
             $user->status = '2';
-        } elseif ($currentDate->equalTo($nextCycle->ovulation)) {
-            $user->status = '4';
         } elseif ($currentDate->between($currentCycle->cycle_start, $currentCycle->period_stop)) {
             $user->status = '1';
-        } elseif ($currentDate->between($currentCycle->period_stop, $nextCycle->ovulation)) {
+        } elseif ($currentDate->between($currentCycle->period_stop, $currentCycle->cycle_end)) {
             $user->status = '3';
-        } elseif ($currentDate->between($nextCycle->ovulation, $currentCycle->cycle_end)) {
-            $user->status = '5';
         }
         $user->save();
 
