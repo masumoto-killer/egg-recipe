@@ -18,8 +18,8 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'last_period_end' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],           
+            'last_period_end' => ['required_without:last_period_start'],
             'average_cycle_length' => ['required'],
             'average_period_length' => ['required'],
         ]);
@@ -31,18 +31,33 @@ class RegisterController extends Controller
             'period_length' => $request->average_period_length,
         ]);
 
-        $periodStop = $request['last_period_end'];
-        $cycleStart = date('Y-m-d', strtotime("-{$request['average_period_length']} days", strtotime($periodStop)));
-        $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
-        $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
+        if ($request['last_period_start']) {
+            $cycleStart = $request['last_period_start'];
+            $periodStop = date('Y-m-d', strtotime("+{$request['average_period_length']} days", strtotime($cycleStart)));
+            $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
+            $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
 
-        Cycle::create([
-            'user_id' => $user->id,
-            'cycle_start' => $cycleStart,
-            'period_stop' => $periodStop,
-            'ovulation' => $ovulation,
-            'cycle_end' => $cycleEnd,
-        ]);
+            Cycle::create([
+                'user_id' => $user->id,
+                'cycle_start' => $cycleStart,
+                'period_stop' => $periodStop,
+                'ovulation' => $ovulation,
+                'cycle_end' => $cycleEnd,
+            ]);
+        } else {
+            $periodStop = $request['last_period_end'];
+            $cycleStart = date('Y-m-d', strtotime("-{$request['average_period_length']} days", strtotime($periodStop)));
+            $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
+            $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
+
+            Cycle::create([
+                'user_id' => $user->id,
+                'cycle_start' => $cycleStart,
+                'period_stop' => $periodStop,
+                'ovulation' => $ovulation,
+                'cycle_end' => $cycleEnd,
+            ]);
+        }
 
         auth()->login($user);
         // Redirect to the desired page after successful registration

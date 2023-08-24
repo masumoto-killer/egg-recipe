@@ -26,8 +26,22 @@
                         </div>
 
                         <div class="form-group row mb-4 justify-content-between">
-                            <label for="last_period_end" class="col-auto col-form-label">
-                                {{ __('Ngày cuối cùng vỡ trứng:') }}</label>
+                            <input class="form-check-input" type="radio" name="register_cycle" id="register_cycle_start" onclick="
+                            document.getElementById('last_period_start').disabled = false;
+                            document.getElementById('last_period_end').disabled = true;">
+                            <label for="register_cycle_start" class="col-auto col-form-label">
+                                {{ __('Ngày bắt đầu vỡ trứng gần nhất:') }}</label>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <input id="last_period_start" type="date" class="form-control" name="last_period_start" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4 justify-content-between">
+                            <input class="form-check-input" type="radio" name="register_cycle" id="register_cycle_end" onclick="
+                            document.getElementById('last_period_start').disabled = true;
+                            document.getElementById('last_period_end').disabled = false;">
+                            <label for="register_cycle_end" class="col-auto col-form-label">
+                                {{ __('Ngày kết thúc vỡ trứng gần nhất:') }}</label>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <input id="last_period_end" type="date" class="form-control" name="last_period_end" required>
                             </div>

@@ -64,38 +64,33 @@
                     </div>
                     <div class="col-auto mt-4">
                         <button type="submit" class="btn btn-primary" id="update">Cập nhật</button>
+                        <script>
+                            const updateButton = document.getElementById("update");
+                            const dateInput1 = document.getElementById("cycle_end");
+                            const dateInput2 = document.getElementById("period_stop");
+                            deactivate()
+                            
+                            function activate() {
+                                updateButton.disabled = false;
+                            }
+                            
+                            function deactivate() {
+                                updateButton.disabled = true;
+                            }
+
+                            function check() {
+                                if (dateInput1.value != '' || dateInput2.value != '') {
+                                activate()
+                                } else {
+                                deactivate()
+                                }
+                            }                            
+                            
+                            dateInput1.addEventListener('input', check)
+                            dateInput2.addEventListener('input', check)
+                        </script>
                     </div>
                 </div>
-                <script>
-                    const updateButton = document.getElementById("update");
-                    const dateInput1 = document.getElementById("cycle_end");
-                    const dateInput2 = document.getElementById("period_stop");
-                    deactivate()
-                    
-                    function activate() {
-                        updateButton.disabled = false;
-                    }
-                    
-                    function deactivate() {
-                        updateButton.disabled = true;
-                    }
-
-                    function check() {
-                        if (dateInput1.value != '' || dateInput2.value != '') {
-                        activate()
-                        } else {
-                        deactivate()
-                        }
-                    }
-                    
-                    updateButton.addEventListener('click', function(e) {
-                        alert('submit')
-                    })
-                    
-                    
-                    dateInput1.addEventListener('input', check)
-                    dateInput2.addEventListener('input', check)
-                </script>
             </form>
         </div>
 
