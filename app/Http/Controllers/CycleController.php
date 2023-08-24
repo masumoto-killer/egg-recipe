@@ -128,12 +128,18 @@ class CycleController extends Controller
 
         if ($currentDate->equalTo($currentCycle->cycle_start)) {
             $user->status = '0';
+            $message = "Có thể bắt đầu vỡ trứng hôm nay";
         } elseif ($currentDate->equalTo($currentCycle->period_stop)) {
             $user->status = '2';
+            $message = "Có thể kết thúc vỡ trứng hôm nay";
         } elseif ($currentDate->between($currentCycle->cycle_start, $currentCycle->period_stop)) {
             $user->status = '1';
+            $daysLeft = Carbon::parse($currentCycle->period_stop)->diffInDays($currentDate);
+            $message = "Có thể kết thúc vỡ trứng sau $daysLeft ngày.";
         } elseif ($currentDate->between($currentCycle->period_stop, $currentCycle->cycle_end)) {
             $user->status = '3';
+            $daysLeft = Carbon::parse($nextCycle->cycle_start)->diffInDays($currentDate);
+            $message = "Có thể bắt đầu vỡ trứng sau $daysLeft ngày.";
         }
         $user->save();
 
@@ -143,7 +149,8 @@ class CycleController extends Controller
                 'cycles' => $cycles,
                 'currentCycle' => $currentCycle,
                 'nextCycle' => $nextCycle,
-                'lastCycle' => $lastCycle
+                'lastCycle' => $lastCycle,
+                'message' => $message
             ]
         );
     }

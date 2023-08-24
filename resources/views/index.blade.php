@@ -8,30 +8,6 @@
             </div>
 
             <div class="alert alert-info" role="alert">
-                @php
-                    $status = $user->status;
-                    $currentDate = \Illuminate\Support\Carbon::today();
-                    $message = '';
-                @endphp
-                @if($status === '0')
-                    @php
-                        $message = "Có thể bắt đầu vỡ trứng hôm nay";
-                    @endphp
-                @elseif($status === '2')
-                    @php
-                        $message = "Có thể kết thúc vỡ trứng hôm nay";
-                    @endphp
-                @elseif($status === '1')
-                    @php
-                        $daysLeft = \Illuminate\Support\Carbon::parse($currentCycle->period_stop)->diffInDays($currentDate);
-                        $message = "Có thể kết thúc vỡ trứng sau $daysLeft ngày.";
-                    @endphp
-                @elseif($status === '3')
-                    @php
-                        $daysLeft = \Illuminate\Support\Carbon::parse($nextCycle->cycle_start)->diffInDays($currentDate);
-                        $message = "Có thể bắt đầu vỡ trứng sau $daysLeft ngày.";
-                    @endphp
-                @endif
                 <h4>{{ $message }}</h4>
             </div>
 
