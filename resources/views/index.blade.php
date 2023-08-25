@@ -11,7 +11,7 @@
                 <h4>{{ $message }}</h4>
             </div>
 
-            <form action="{{ route('update.cycle') }}" method="post" class="card my-4">
+            {{-- <form action="{{ route('update.cycle') }}" method="post" class="card my-4">
                 <div class="card-header">{{ ('Cập nhật chu kỳ') }}</div>
                 <div class="card-body">
                     @csrf
@@ -58,7 +58,7 @@
                         </script>
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
 
         <div class="col-lg-6 col-md-12 text-center">                
@@ -66,7 +66,7 @@
                     <script src="{{ asset('fullcalendar/core/index.global.js') }}"></script>
                     <script src="{{ asset('fullcalendar/daygrid/index.global.js') }}"></script>
                     <script src="{{ asset('fullcalendar/bootstrap5/index.global.js') }}"></script>
-                    <link rel="stylesheet" href="{{ asset('fullcalendar/bootstrap-icons/font/bootstrap-icons.css') }}">
+                    <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             var calendarEl = document.getElementById('calendar');

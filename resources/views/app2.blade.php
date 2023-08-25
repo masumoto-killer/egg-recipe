@@ -27,6 +27,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">Người dùng</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/edit">Cập nhật</a>
+                    </li>
+
                     <li class="nav-item ms-auto">
                         <a class="nav-link" href="/logout">Đăng xuất</a>
                     </li>
@@ -42,5 +46,7 @@
 
     <!-- Include JS scripts if needed -->
     <script src="{{ asset('bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
+
 </body>
 </html>
