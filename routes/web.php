@@ -40,6 +40,8 @@ Route::get('/logout', function () {
 
 Route::get('/index', [CycleController::class, 'index'])->name('index')->middleware('auth.user');
 Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile')->middleware('auth.user');
-Route::put('/cycle/{cycle}', [CycleController::class, 'update'])->name('cycle.update');
+Route::put('/cycle/{id}', [CycleController::class, 'update'])->name('cycle.update');
+Route::post('/cycle/add', [CycleController::class, 'add'])->name('cycle.add');
 Route::get('/edit', [CycleController::class, 'edit'])->name('edit')->middleware('auth.user');
+Route::delete('/cycle/{id}', [CycleController::class, 'delete'])->name('cycle.delete');
 

@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <input id="last_period_start" type="date" class="form-control" 
-                                name="last_period_start" max="{{ today()->format('Y-m-d') }}" required>
+                                name="last_period_start" max="{{ today() }}" required disabled>
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <input id="last_period_end" type="date" class="form-control" 
-                                name="last_period_end" max="{{ today()->format('Y-m-d') }}" required>
+                                name="last_period_end" max="{{ today() }}" required disabled>
                             </div>
                         </div>
 
@@ -81,9 +81,7 @@
 
                         <div class="form-group row mb-0 justify-content-center">
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Đăng ký') }}
-                                </button>
+                                <button type="submit" class="btn btn-primary">{{ __('Đăng ký') }}</button>
                             </div>
                         </div>
                     </form>

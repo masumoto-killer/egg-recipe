@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cycle;
+use Carbon\Carbon;
+use App\Http\Controllers\CycleController;
 
 class UserController extends Controller
 {
@@ -14,20 +17,20 @@ class UserController extends Controller
         return view('profile',['user' => $user,]);
     }
 
-    public function updateUserCycle(User $user)
+    public static function updateCycleInfo(User $user)
     {
-        $user = auth()->user();
-        $recentCycles = Cycle::where('user_id', $user->id)->orderBy('cycle_end','desc')->take(3)->get();
+        $forecastCycles = Cycle::where('user_id', $user->id)->where('cycle_start','>',Carbon::today());
+        $forecastCycles->delete();
+
+        $recentCycles = Cycle::where('user_id', $user->id)->where('cycle_end','<=',Carbon::today())->orderBy('cycle_end','desc')->take(6)->get();
         $periodLengthSum = 0;
         $cycleLengthSum = 0;
-        $count = 0;
         foreach ($recentCycles as $cycle) {
             $periodLengthSum += (Carbon::parse($cycle->period_stop)->diffInDays($cycle->cycle_start));
             $cycleLengthSum += (Carbon::parse($cycle->cycle_end)->diffInDays($cycle->cycle_start));
-            $count ++;
         }
-        $user->period_length = round($periodLengthSum / $count);
-        $user->cycle_length = round($cycleLengthSum / $count);
+        $user->period_length = round($periodLengthSum / count($recentCycles));
+        $user->cycle_length = round($cycleLengthSum / count($recentCycles));
         $user->save();
         return $user;
     }

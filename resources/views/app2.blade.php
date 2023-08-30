@@ -4,6 +4,7 @@
     <title>{{ config('app.name', 'Egg Recipe') }}</title>
     <!-- Include CSS and other meta tags -->
     <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&family=Tilt+Neon&display=swap" rel="stylesheet">
@@ -46,7 +47,6 @@
 
     <!-- Include JS scripts if needed -->
     <script src="{{ asset('bootstrap.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
 
 </body>
 </html>
