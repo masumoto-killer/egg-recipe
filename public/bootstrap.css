@@ -72,6 +72,7 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+  --fc-today-bg-color: #e9c2ff !important;
 }
 
 *,
@@ -4734,7 +4735,7 @@ textarea.form-control-lg {
 .alert-info {
   --bs-alert-color: #4e007a;
   --bs-alert-bg: #e9c2ff;
-  --bs-alert-border-color: #ce7aff;
+  --bs-alert-border-color: #e9c2ff;
 }
 .alert-info .alert-link {
   color: #04414d;
@@ -4743,7 +4744,7 @@ textarea.form-control-lg {
 .alert-warning {
   --bs-alert-color: #664d03;
   --bs-alert-bg: rgb(255, 255, 170);
-  --bs-alert-border-color: rgb(242, 242, 89);
+  --bs-alert-border-color: rgb(255, 255, 170);
 }
 .alert-warning .alert-link {
   color: #523e02;

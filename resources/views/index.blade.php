@@ -1,7 +1,7 @@
 @extends('app2')
 
 @section('content')
-    <div class="container-md d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
+    <div class="container-fluid d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
         <div class="col-lg-4 col-md-12 text-center">
             <div class="alert alert-warning" role="alert">
                 <h4>Xin chào {{ $user -> name }}</h4>
@@ -63,66 +63,70 @@
 
         <div class="col-lg-6 col-md-12 text-center">                
             <div id="calendar" class="card p-4">
-                    <script>
-                        import { Calendar } from '@fullcalendar/core'
-                        import dayGridPlugin from '@fullcalendar/daygrid'
-                        import multiMonthPlugin from '@fullcalendar/multimonth'
-                        import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-                        document.addEventListener('DOMContentLoaded', function () {
-                            var calendarEl = document.getElementById('calendar');
-                            var calendar = new FullCalendar.Calendar(calendarEl, {
-                                plugins: [dayGridPlugin, multiMonthPlugin, bootstrap5Plugin],
-                                events: [
-                                    // Loop through cycle data and create events
-                                    @foreach ($cycles as $cycle)
-                                    {
-                                        title: 'Vỡ trứng',
-                                        start: '{{ $cycle->cycle_start }}',
-                                        end: '{{ $cycle->period_stop }}',
-                                        color: '#ffc2df',
-                                        textColor: 'black',
+                <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/index.global.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/index.global.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/multimonth/index.global.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5/index.global.min.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            events: [
+                                // Loop through cycle data and create events
+                                @foreach ($cycles as $cycle)
+                                {
+                                    title: 'Vỡ trứng',
+                                    start: '{{ $cycle->cycle_start }}',
+                                    end: '{{ $cycle->period_stop }}',
+                                    color: '#ffc2df',
+                                    textColor: 'black',
+                                },
+                                {
+                                    title: 'Rớt trứng',
+                                    start: '{{ $cycle->ovulation }}',
+                                    color: '#FFF899',
+                                    textColor: 'black',
+                                },
+                                @endforeach
+                            ],
+                            dayHeaderFormat: {
+                                weekday: 'short',
+                            },
+                            views: {
+                                dayGridMonth: {
+                                    titleFormat: {
+                                        month: 'numeric',
+                                        year: 'numeric',
                                     },
-                                    {
-                                        title: 'Rớt trứng',
-                                        start: '{{ $cycle->ovulation }}',
-                                        color: '#FFF899',
-                                        textColor: 'black',
+                                },
+                                multiMonthYear: {
+                                    titleFormat: {
+                                        year: "numeric",
                                     },
-                                    @endforeach
-                                ],
-                                dayHeaderFormat: {
-                                    weekday: 'short',
                                 },
-                                titleFormat: {
-                                    month: 'numeric',
-                                    year: 'numeric',
-                                },
-                                buttonText: {
-                                    today: 'Hôm nay',
-                                },
-                                // monthStartFormat: {
-                                //     month: 'short',
-                                //     day: 'numeric',
-                                // },
-                                headerToolbar: {
-                                    start: 'today,dayGridMonth,multiMonthYear',
-                                    center: 'title',
-                                    end: 'prev,next',
-                                },
-                                // buttonIcons: {
-                                //     prevYear: 'caret-left-fill',
-                                //     nextYear: 'caret-right-fill',
-                                // },
-                                themeSystem: 'bootstrap5',
-                                initialView: "dayGridMonth",
-                                locale: 'vi',
-                                firstDay: '1',
-                                windowResizeDelay: '0',
-                                height: 'auto',
-                            });
-                            calendar.render();
+                            },
+                            buttonText: {
+                                month: 'Tháng',
+                                year: 'Năm',
+                            },
+                            buttonIcons: {
+                                today: 'bookmark',
+                            },
+                            headerToolbar: {
+                                start: 'dayGridMonth,multiMonthYear',
+                                center: 'title',
+                                end: 'prev,today,next',
+                            },
+                            themeSystem: 'bootstrap5',
+                            initialView: "dayGridMonth",
+                            locale: 'vi',
+                            firstDay: '1',
+                            windowResizeDelay: '0',
+                            multiMonthMinWidth: '300',
                         });
-                    </script>    
+                        calendar.render();
+                    });
+                </script>    
             </div>
         </div>
     </div>
