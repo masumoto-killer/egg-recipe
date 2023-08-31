@@ -142,6 +142,7 @@ class CycleController extends Controller
     public function index(User $user)
     {
         // Get the authenticated user and current date
+        $user = auth()->user();
         $currentDate = Carbon::today();
 
         // Fetch the authenticated user and their last cycle (if available)
