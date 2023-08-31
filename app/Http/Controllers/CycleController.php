@@ -56,14 +56,14 @@ class CycleController extends Controller
         $newCycle->save();
 
         // Update the previous cycle's cycle_end (if it exists)
-        $previousCycle = Cycle::where('user_id', $user->id)->where('cycle_end', '<=', $newCycle->cycle_start)->latest('cycle_end')->first();
+        $previousCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '<', $newCycle->cycle_start)->orderBy('cycle_start', 'desc')->first();
         if ($previousCycle) {
             $previousCycle->cycle_end = $newCycle->cycle_start;
             $previousCycle->save();
         }
 
         // Update the next cycle's cycle_start (if it exists)
-        $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>=', $newCycle->cycle_end)->oldest('cycle_start')->first();
+        $nextCycle = Cycle::where('user_id', $user->id)->where('cycle_start', '>', $newCycle->cycle_start)->orderBy('cycle_start')->first();
         if ($nextCycle) {
             $newCycle->cycle_end = $nextCycle->cycle_start;
             $newCycle->save();
@@ -142,9 +142,7 @@ class CycleController extends Controller
     public function index(User $user)
     {
         // Get the authenticated user and current date
-        $user = auth()->user();
         $currentDate = Carbon::today();
-        $cycles = Cycle::where('user_id', $user->id)->get();
 
         // Fetch the authenticated user and their last cycle (if available)
         $lastCycle = Cycle::where('user_id', $user->id)->latest('cycle_end')->first();
@@ -174,6 +172,7 @@ class CycleController extends Controller
             $message = "Có thể bắt đầu vỡ trứng sau $daysLeft ngày.";
         }
         $user->save();
+        $cycles = Cycle::where('user_id', $user->id)->get();
 
         return view(
             'index',[

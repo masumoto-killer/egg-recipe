@@ -34,7 +34,7 @@ Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallba
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/logout', function () {
-    auth()->logout(); // Clear the local session or cookies
+    auth()->logout();
     return redirect('/welcome');
 });
 

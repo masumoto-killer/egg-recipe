@@ -3,11 +3,11 @@
 @section('content')
 <div class="container-md d-flex align-items-start justify-content-center my-4">
     <table id="table" class="col-xl-6 col-lg-8 col-md-10 table text-center">
-        <caption>Hướng dẫn</caption>
+        <caption>Cập nhật đầy đủ các chu kỳ rớt trứng gần đây để có thể dự báo chính xác hơn</caption>
         <thead>
             <tr>
-                <th>Cycle Start</th>
-                <th>Period Stop</th>
+                <th>Bắt đầu</th>
+                <th>Kết thúc</th>
                 <td><button class="btn btn-secondary btn-sm add_button"><i class="bi bi-plus-lg"></i></button></td>
             </tr>
         </thead>

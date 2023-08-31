@@ -63,14 +63,15 @@
 
         <div class="col-lg-6 col-md-12 text-center">                
             <div id="calendar" class="card p-4">
-                    <script src="{{ asset('fullcalendar/core/index.global.js') }}"></script>
-                    <script src="{{ asset('fullcalendar/daygrid/index.global.js') }}"></script>
-                    <script src="{{ asset('fullcalendar/bootstrap5/index.global.js') }}"></script>
-                    <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
                     <script>
+                        import { Calendar } from '@fullcalendar/core'
+                        import dayGridPlugin from '@fullcalendar/daygrid'
+                        import multiMonthPlugin from '@fullcalendar/multimonth'
+                        import bootstrap5Plugin from '@fullcalendar/bootstrap5';
                         document.addEventListener('DOMContentLoaded', function () {
                             var calendarEl = document.getElementById('calendar');
                             var calendar = new FullCalendar.Calendar(calendarEl, {
+                                plugins: [dayGridPlugin, multiMonthPlugin, bootstrap5Plugin],
                                 events: [
                                     // Loop through cycle data and create events
                                     @foreach ($cycles as $cycle)
@@ -104,7 +105,7 @@
                                 //     day: 'numeric',
                                 // },
                                 headerToolbar: {
-                                    start: 'today',
+                                    start: 'today,dayGridMonth,multiMonthYear',
                                     center: 'title',
                                     end: 'prev,next',
                                 },

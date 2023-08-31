@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'oauth2' => [
+        'id' => env('GOOGLE_CLIENT_ID'),
+        'secret' => env('GOOGLE_CLIENT_SECRET'),
+        'uri' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
 ];

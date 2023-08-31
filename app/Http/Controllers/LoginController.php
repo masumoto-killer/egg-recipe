@@ -21,7 +21,7 @@ class LoginController extends Controller
         // Set the client ID, client secret, redirect URI, and access type
         $client->setClientId(env('GOOGLE_CLIENT_ID'));
         $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(url('/auth/google/callback'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
         $client->setAccessType('offline');
         
         // Retrieve the authorization code from the callback request
