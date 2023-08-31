@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-md d-flex align-items-start justify-content-center my-4">
-    <table id="table" class="col-xl-6 col-lg-8 col-md-10 table text-center">
+    <table id="table" class="col-xl-6 col-lg-8 col-md-10 table table-light text-center caption-top">
         <caption>Cập nhật đầy đủ các chu kỳ rớt trứng gần đây để có thể dự báo chính xác hơn</caption>
         <thead>
             <tr>
