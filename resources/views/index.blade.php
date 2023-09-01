@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
-        <div class="col-lg-4 col-md-12 text-center">
+        <div class="col-lg-8 col-md-12 text-center vh-75">
             <div class="alert alert-warning" role="alert">
                 <h4>Xin chào {{ $user -> name }}</h4>
             </div>
@@ -59,9 +59,6 @@
                     </div>
                 </div>
             </form> --}}
-        </div>
-
-        <div class="col-lg-6 col-md-12 text-center">                
             <div id="calendar" class="card p-4">
                 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/index.global.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/index.global.min.js"></script>
@@ -81,12 +78,12 @@
                                     color: '#ffc2df',
                                     textColor: 'black',
                                 },
-                                {
-                                    title: 'Rớt trứng',
-                                    start: '{{ $cycle->ovulation }}',
-                                    color: '#FFF899',
-                                    textColor: 'black',
-                                },
+                                // {
+                                //     title: 'Rớt trứng',
+                                //     start: '{{ $cycle->ovulation }}',
+                                //     color: '#FFF899',
+                                //     textColor: 'black',
+                                // },
                                 @endforeach
                             ],
                             dayHeaderFormat: {
@@ -122,7 +119,6 @@
                             locale: 'vi',
                             firstDay: '1',
                             windowResizeDelay: '0',
-                            multiMonthMinWidth: '300',
                         });
                         calendar.render();
                     });
