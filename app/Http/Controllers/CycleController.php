@@ -22,7 +22,7 @@ class CycleController extends Controller
         // Calculate the new cycle's start and end dates based on the formula
         $newCycleStart = Carbon::parse($lastCycle->cycle_end);
         $newCycleEnd = Carbon::parse($newCycleStart)->addDays($user->cycle_length);
-        $periodStop = Carbon::parse($newCycleStart)->addDays($user->period_length);
+        $periodStop = Carbon::parse($newCycleStart)->addDays($user->period_length)->subDays(1);
         $ovulation = Carbon::parse($newCycleStart)->subDays(14);
 
         // Create a new cycle record in the database
@@ -49,7 +49,7 @@ class CycleController extends Controller
             'cycle_start' => $request->input('cycle_start'),
             'period_stop' => $request->input('period_stop'),
             'ovulation' => Carbon::parse($request->input('cycle_start'))->subDays(14),
-            'cycle_end' => Carbon::parse($request->input('cycle_start'))->addDays($user->cycle_length)
+            'cycle_end' => Carbon::parse($request->input('cycle_start'))->addDays($user->cycle_length)->subDays(1)
         ]);
 
         // Save the new cycle

@@ -77,6 +77,7 @@
                                     end: '{{ $cycle->period_stop }}',
                                     color: '#ffc2df',
                                     textColor: 'black',
+                                    allDay: 'true',
                                 },
                                 // {
                                 //     title: 'Rớt trứng',

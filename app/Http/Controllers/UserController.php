@@ -23,15 +23,17 @@ class UserController extends Controller
         $forecastCycles->delete();
 
         $recentCycles = Cycle::where('user_id', $user->id)->where('cycle_end','<=',Carbon::today())->orderBy('cycle_end','desc')->take(6)->get();
-        $periodLengthSum = 0;
-        $cycleLengthSum = 0;
-        foreach ($recentCycles as $cycle) {
-            $periodLengthSum += (Carbon::parse($cycle->period_stop)->diffInDays($cycle->cycle_start));
-            $cycleLengthSum += (Carbon::parse($cycle->cycle_end)->diffInDays($cycle->cycle_start));
+        if ($recentCycles) {
+            $periodLengthSum = 0;
+            $cycleLengthSum = 0;
+            foreach ($recentCycles as $cycle) {
+                $periodLengthSum += (Carbon::parse($cycle->period_stop)->diffInDays($cycle->cycle_start)) +1;
+                $cycleLengthSum += (Carbon::parse($cycle->cycle_end)->diffInDays($cycle->cycle_start));
+            }
+            $user->period_length = round($periodLengthSum / count($recentCycles));
+            $user->cycle_length = round($cycleLengthSum / count($recentCycles));
+            $user->save();
+            return $user;
         }
-        $user->period_length = round($periodLengthSum / count($recentCycles));
-        $user->cycle_length = round($cycleLengthSum / count($recentCycles));
-        $user->save();
-        return $user;
     }
 }
