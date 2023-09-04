@@ -68,25 +68,14 @@
                     document.addEventListener('DOMContentLoaded', function () {
                         var calendarEl = document.getElementById('calendar');
                         var calendar = new FullCalendar.Calendar(calendarEl, {
-                            events: [
-                                // Loop through cycle data and create events
-                                @foreach ($cycles as $cycle)
-                                {
-                                    title: 'Vỡ trứng',
-                                    start: '{{ $cycle->cycle_start }}',
-                                    end: '{{ $cycle->period_stop }}',
-                                    color: '#ffc2df',
-                                    textColor: 'black',
-                                    allDay: 'true',
-                                },
-                                // {
-                                //     title: 'Rớt trứng',
-                                //     start: '{{ $cycle->ovulation }}',
-                                //     color: '#FFF899',
-                                //     textColor: 'black',
-                                // },
-                                @endforeach
-                            ],
+                            themeSystem: 'bootstrap5',
+                            initialView: "dayGridMonth",
+                            locale: 'vi',
+                            firstDay: '1',
+                            windowResizeDelay: '0',
+                            defaultAllDay: false,
+                            nextDayThreshold: "09:00:00",
+                            displayEventTime: false,
                             dayHeaderFormat: {
                                 weekday: 'short',
                             },
@@ -115,11 +104,24 @@
                                 center: 'title',
                                 end: 'prev,today,next',
                             },
-                            themeSystem: 'bootstrap5',
-                            initialView: "dayGridMonth",
-                            locale: 'vi',
-                            firstDay: '1',
-                            windowResizeDelay: '0',
+                            events: [
+                                // Loop through cycle data and create events
+                                @foreach ($cycles as $cycle)
+                                {
+                                    title: 'Vỡ trứng',
+                                    start: '{{ $cycle->cycle_start }}T12:00:00',
+                                    end: '{{ $cycle->period_stop }}T12:00:00',
+                                    color: '#ffc2df',
+                                    textColor: 'black',
+                                },
+                                // {
+                                //     title: 'Rớt trứng',
+                                //     start: '{{ $cycle->ovulation }}',
+                                //     color: '#FFF899',
+                                //     textColor: 'black',
+                                // },
+                                @endforeach
+                            ],
                         });
                         calendar.render();
                     });
