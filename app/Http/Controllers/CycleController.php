@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 
 class CycleController extends Controller
 {
-    public function create(User $user)
+    public function create()
     {
         // Get the authenticated user
         $user = auth()->user();
@@ -139,7 +139,7 @@ class CycleController extends Controller
         return view('edit', compact('cycles'));
     }
 
-    public function index(User $user)
+    public function index()
     {
         // Get the authenticated user and current date
         $user = auth()->user();
