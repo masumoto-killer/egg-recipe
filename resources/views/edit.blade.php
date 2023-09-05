@@ -12,7 +12,6 @@
                     <td class="col-3"><button class="btn btn-secondary btn-sm add_button"><i class="bi bi-plus-lg"></i></button></td>
                 </tr>
             </thead>
-
             <tbody class="table-group-divider">
                 <tr class="add_cycle table-warning">
                     <form action="{{ route('cycle.add') }}" method="POST" onsubmit="return confirm('Thêm chu kỳ?');">
@@ -52,9 +51,9 @@
                         @csrf
                         @method('PUT')
                         <td><input type="date" class="form-control text-center"
-                            name="cycle_start" value="{{ $cycle->cycle_start }}" required max="{{ today() }}"></td>
+                            name="cycle_start" value="{{ $cycle->cycle_start }}" required max="{{ today()->format('Y-m-d') }}"></td>
                         <td><input type="date" class="form-control text-center" 
-                            name="period_stop" value="{{ $cycle->period_stop }}" required max="{{ today() }}"></td>
+                            name="period_stop" value="{{ $cycle->period_stop }}" required max="{{ today()->format('Y-m-d') }}"></td>
                         <td class="col-3">
                             <button type="submit" class="btn btn-success btn-sm save_button">
                                 <i class="bi bi-check-lg"></i></button>

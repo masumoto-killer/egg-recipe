@@ -130,7 +130,6 @@ class CycleController extends Controller
         return redirect()->route('edit');
     }
 
-
     public function edit()
     {
         // Fetch the user's cycles, ordered by date
