@@ -45,3 +45,4 @@ Route::post('/cycle/add', [CycleController::class, 'add'])->name('cycle.add');
 Route::get('/edit', [CycleController::class, 'edit'])->name('edit')->middleware('auth.user');
 Route::delete('/cycle/{id}', [CycleController::class, 'delete'])->name('cycle.delete');
 
+Route::get('/add-to-google-calendar/{id}', [CycleController::class, 'addToGoogleCalendar'])->name('add-to-google-calendar');

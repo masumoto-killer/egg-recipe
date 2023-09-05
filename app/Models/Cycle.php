@@ -14,5 +14,6 @@ class Cycle extends Model
         'period_stop',
         'ovulation',
         'cycle_end',
+        'in_calendar',
     ];
 }

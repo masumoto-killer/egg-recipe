@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cycle;
+use Spatie\GoogleCalendar\Event;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\UserController;
 
@@ -185,4 +186,21 @@ class CycleController extends Controller
             ]
         );
     }
+
+    public function addToGoogleCalendar($id) {
+        $cycle = Cycle::findOrFail($id);
+        $user = User::find($cycle->user_id);
+
+        $event = new Event;
+        $event->name = 'Next Egg Recipe';
+        $event->startDate = Carbon::parse($cycle->cycle_start);
+        $event->endDate = Carbon::parse($cycle->period_stop);
+        $event->addAttendee(['email' => $user->email]);
+        $event->save();
+
+        $cycle->update(['in_calendar' => true]);
+    
+        return redirect()->route('index');
+    }
+    
 }

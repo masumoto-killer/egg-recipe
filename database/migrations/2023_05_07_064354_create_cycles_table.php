@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('period_stop');
             $table->date('ovulation');
             $table->date('cycle_end');
+            $table->boolean('in_calendar')->default(false);
         });
     }
 
