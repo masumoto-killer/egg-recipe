@@ -18,14 +18,14 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <form action="{{ route('cycle.update', $currentCycle->id) }}" onsubmit="return confirm('Cập nhật chu kỳ?');">
                                 @csrf
-                                <div class="form-group justify-content-center w-100 <?php if ($user->status == '1' || $user->status == '2') {echo 'd-none';} else {echo 'd-flex flex-wrap';}?>" id="cycle_end_form">
+                                <div class="form-group justify-content-center w-100 flex-wrap <?php if ($user->status == '1' || $user->status == '2') {echo 'd-none';} else {echo 'd-flex';}?>" id="cycle_end_form">
                                     <label for="cycle_end" class="col-form-label col-xl-12">Đã bắt đầu vỡ trứng vào:</label>
                                     <div class="input-group col-auto mx-4">
                                         <input type="date" name="cycle_end" id="cycle_end" class="form-control" value="{{ today()->format('Y-m-d') }}" max="{{ today()->format('Y-m-d') }}">
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i></button>
                                     </div>
                                 </div>
-                                <div class="form-group justify-content-center w-100 <?php if ($user->status == '0' || $user->status == '3') {echo 'd-none';} else {echo 'd-flex flex-wrap';}?>" id="period_stop_form">
+                                <div class="form-group justify-content-center w-100 flex-wrap <?php if ($user->status == '0' || $user->status == '3') {echo 'd-none';} else {echo 'd-flex';}?>" id="period_stop_form">
                                     <label for="period_stop" class="col-form-label">Đã kết thúc vỡ trứng vào:</label>
                                     <div class="input-group col-auto mx-4">
                                         <input type="date" name="period_stop" id="period_stop" class="form-control" value="{{ today()->format('Y-m-d') }}" max="{{ today()->format('Y-m-d') }}">
@@ -38,11 +38,11 @@
                 </div>
             </div>
 
-            <div class="card p-4">
+            {{-- <div class="card p-4">
                 <form action="{{ route('add-to-google-calendar', $nextCycle->id) }}" onsubmit="return confirm('Confirm?');">
                     <button type="submit" class="btn btn-primary">Thêm vào Google Calendar</button>
                 </form>
-            </div>
+            </div> --}}
 
             <div id="calendar" class="card p-4">
                 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/index.global.min.js"></script>

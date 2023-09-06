@@ -23,6 +23,8 @@ class User extends Authenticatable
         'status',
         'period_length',
         'cycle_length',
+        'mail_date',
+        'mail_time',
     ];
 
     /**

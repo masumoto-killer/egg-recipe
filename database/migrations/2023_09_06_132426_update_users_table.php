@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cycles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->integer('user_id');
-            $table->date('cycle_start');
-            $table->date('period_stop');
-            $table->date('ovulation');
-            $table->date('cycle_end');
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('mail_date')->nullable()->default('0');
+            $table->timeTz('mail_time')->nullable()->default('08:00');
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cycles');
+        //
     }
 };

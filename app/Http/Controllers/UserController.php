@@ -11,7 +11,7 @@ use App\Http\Controllers\CycleController;
 
 class UserController extends Controller
 {
-    public function viewProfile(User $user)
+    public function viewProfile()
     {
         $user = auth()->user();
         return view('profile',['user' => $user,]);
@@ -35,5 +35,22 @@ class UserController extends Controller
             $user->save();
             return $user;
         }
+    }
+
+    public function setEmailNotification(Request $request)
+    {
+        $user = auth()->user();
+        $user->update([
+            'mail_date' => $request->input('mail_date'),
+            'mail_time' => $request->input('mail_time'),
+        ]);
+        return redirect()->route('profile');
+    }
+
+    public function sendEmail(User $user): RedirectResponse
+    {
+        Mail::mailer('ses')->to($user->email)->send(new CycleComing($cycle, $user));
+
+        return redirect()->route('index');
     }
 }
