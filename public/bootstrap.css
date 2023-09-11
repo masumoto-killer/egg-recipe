@@ -90,6 +90,8 @@
 html, body {
   justify-content: center;
   margin: 0;
+  height: 100%;
+  overflow: hidden;
   font-family: 'Comfortaa', cursive;
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
@@ -2250,7 +2252,7 @@ textarea.form-control-lg {
   display: block;
   min-height: 1.5rem;
   padding-left: 1.5em;
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.25rem;
 }
 .form-check .form-check-input {
   float: left;
@@ -2325,7 +2327,7 @@ textarea.form-control-lg {
 }
 
 .form-switch {
-  padding-left: 2.5em;
+  padding-left: 5.5em;
 }
 .form-switch .form-check-input {
   width: 2em;

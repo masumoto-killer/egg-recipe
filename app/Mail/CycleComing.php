@@ -11,17 +11,16 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Carbon\Carbon;
 
-class CycleComing extends Mailable
+class CycleComing extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        protected User $user,
-    }
+    public function __construct(
+        private User $user,
+    ) {}
 
     /**
      * Get the message envelope.
@@ -39,10 +38,10 @@ class CycleComing extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email',
+            view: 'email/notification',
             with: [
                 'name' => $this->user->name,
-                'days' => $this->user->mail_date,
+                'mail_date' => $this->user->mail_date,
                 'period_length' => $this->user->period_length,
             ],
         );

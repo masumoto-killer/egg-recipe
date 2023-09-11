@@ -33,7 +33,7 @@ class RegisterController extends Controller
 
         if ($request['last_period_start']) {
             $cycleStart = $request['last_period_start'];
-            $periodStop = date('Y-m-d', strtotime("+{$request['average_period_length']} days", strtotime($cycleStart)));
+            $periodStop = date('Y-m-d', strtotime("-1 day", strtotime("+{$request['average_period_length']} days", strtotime($cycleStart))));
             $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
             $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
 
@@ -46,7 +46,7 @@ class RegisterController extends Controller
             ]);
         } else {
             $periodStop = $request['last_period_end'];
-            $cycleStart = date('Y-m-d', strtotime("-{$request['average_period_length']} days", strtotime($periodStop)));
+            $cycleStart = date('Y-m-d', strtotime("+1 day", strtotime("-{$request['average_period_length']} days", strtotime($periodStop))));
             $ovulation = date('Y-m-d', strtotime("-14 days", strtotime($cycleStart)));
             $cycleEnd = date('Y-m-d', strtotime("{$request['average_cycle_length']} days", strtotime($cycleStart)));
 

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
-        <div class="col-lg-8 col-md-12 text-center vh-75">
+        <div class="container col-lg-8 col-md-12 text-center">
             <div class="row d-flex flex-wrap">
                 <div class="col-md-12 col-lg-7 col-xl-8">
                     <div class="alert alert-warning my-3" role="alert">
@@ -19,14 +19,14 @@
                             <form action="{{ route('cycle.update', $currentCycle->id) }}" onsubmit="return confirm('Cập nhật chu kỳ?');">
                                 @csrf
                                 <div class="form-group justify-content-center w-100 flex-wrap <?php if ($user->status == '1' || $user->status == '2') {echo 'd-none';} else {echo 'd-flex';}?>" id="cycle_end_form">
-                                    <label for="cycle_end" class="col-form-label col-xl-12">Đã bắt đầu vỡ trứng vào:</label>
+                                    <label for="cycle_end" class="col-form-label col-xl-12">Đã bắt đầu chu kỳ vào:</label>
                                     <div class="input-group col-auto mx-4">
                                         <input type="date" name="cycle_end" id="cycle_end" class="form-control" value="{{ today()->format('Y-m-d') }}" max="{{ today()->format('Y-m-d') }}">
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-group justify-content-center w-100 flex-wrap <?php if ($user->status == '0' || $user->status == '3') {echo 'd-none';} else {echo 'd-flex';}?>" id="period_stop_form">
-                                    <label for="period_stop" class="col-form-label">Đã kết thúc vỡ trứng vào:</label>
+                                    <label for="period_stop" class="col-form-label">Đã kết thúc chu kỳ vào:</label>
                                     <div class="input-group col-auto mx-4">
                                         <input type="date" name="period_stop" id="period_stop" class="form-control" value="{{ today()->format('Y-m-d') }}" max="{{ today()->format('Y-m-d') }}">
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i></button>
@@ -62,6 +62,7 @@
                             defaultAllDay: false,
                             nextDayThreshold: "09:00:00",
                             displayEventTime: false,
+                            height: "60%",
                             dayHeaderFormat: {
                                 weekday: 'short',
                             },
@@ -94,7 +95,6 @@
                                 // Loop through cycle data and create events
                                 @foreach ($cycles as $cycle)
                                 {
-                                    title: 'Vỡ trứng',
                                     start: '{{ $cycle->cycle_start }}T12:00:00',
                                     end: '{{ $cycle->period_stop }}T12:00:00',
                                     color: '#ffc2df',
