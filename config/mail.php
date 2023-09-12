@@ -61,6 +61,8 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
+            'user' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
             // 'client' => [
             //     'timeout' => 5,
             // ],
@@ -69,6 +71,14 @@ return [
         'sendmail' => [
             'transport' => 'sendmail',
             'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
+        ],
+
+        'mailersend' => [
+            'transport' => 'mailersend',
+            'api_key' => env('MAILERSEND_API_KEY'),
+            'host' => env('MAILERSEND_API_HOST', 'api.mailersend.com'),
+            'protocol' => env('MAILERSEND_API_PROTO', 'https'),
+            'api_path' => env('MAILERSEND_API_PATH', 'v1'),
         ],
 
         'log' => [

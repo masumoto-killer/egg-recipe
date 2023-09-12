@@ -2,34 +2,30 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
-use Carbon\Carbon;
 
-class CycleComing extends Mailable implements ShouldQueue
+class EmailNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        private User $user,
-    ) {}
+    public function __construct(public User $user)
+    {}
 
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Cycle Coming',
-        );
+        return new Envelope();
     }
 
     /**
@@ -38,12 +34,7 @@ class CycleComing extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'email/notification',
-            with: [
-                'name' => $this->user->name,
-                'mail_date' => $this->user->mail_date,
-                'period_length' => $this->user->period_length,
-            ],
+            view: 'notification',
         );
     }
 

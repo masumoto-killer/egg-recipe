@@ -9,7 +9,7 @@ use App\Models\Cycle;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\CycleController;
-use App\Mail\CycleComing;
+use App\Mail\EmailNotification;
 
 class UserController extends Controller
 {
@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function sendEmail(User $user): RedirectResponse
     {
-        Mail::to($user->email)->later($user->mail_time, new CycleComing($user));
+        Mail::to($user)->later(today()->setTimeFromTimeString($user->mail_time), (new EmailNotification($user))->view('notification'));
 
         return 0;
     }
@@ -59,7 +59,7 @@ class UserController extends Controller
     public function testSendEmail()
     {
         $user = auth()->user();
-        Mail::to($user)->send(new CycleComing($user));
+        Mail::to($user)->send((new EmailNotification($user))->view('notification'));
 
         return redirect()->route('profile');
     }
