@@ -16,7 +16,7 @@
         </div>
 
         <div class="text-center card">
-            <div class="card-header">{{ ('Cài đặt thông báo chu kỳ mới') }}</div>
+            <div class="card-header">{{ ('Cài đặt thông báo') }}</div>
             <div class="card-body d-flex">
                 <form method="POST" action="{{ route('set-mail-notification') }}" class="d-flex flex-column w-100" id="setNoti">
                 @csrf

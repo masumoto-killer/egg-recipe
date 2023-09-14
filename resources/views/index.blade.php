@@ -4,8 +4,8 @@
     <div class="container-fluid d-flex align-items-start justify-content-lg-around justify-content-md-start my-4 flex-wrap">
         <div class="container col-lg-8 col-md-12 text-center">
             <div class="row d-flex flex-wrap">
-                <div class="col-md-12 col-lg-7 col-xl-8">
-                    <div class="alert alert-warning my-3" role="alert">
+                <div class="col-md-12 col-lg-7">
+                    <div class="alert alert-warning mb-3" role="alert">
                         <h4>Xin chào {{ $user -> name }}</h4>
                     </div>
                     <div class="alert alert-info" role="alert">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 col-lg-5 col-xl-4 py-3">
+                <div class="col-md-12 col-lg-5 pb-3">
                     <div class="card mb-3 h-100">
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <form action="{{ route('cycle.update', $currentCycle->id) }}" onsubmit="return confirm('Cập nhật chu kỳ?');">

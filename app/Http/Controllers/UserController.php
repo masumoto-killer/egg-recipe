@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function sendEmail(User $user): RedirectResponse
     {
-        Mail::to($user)->later(today()->setTimeFromTimeString($user->mail_time), (new EmailNotification($user))->view('notification'));
+        Mail::to($user)->later(today()->setTimeFromTimeString($user->mail_time), (new EmailNotification($user))->subject('Egg Recipe: Chu kỳ mới sắp bắt đầu')->view('notification'));
 
         return 0;
     }
