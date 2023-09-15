@@ -18,4 +18,8 @@ chown -R www-data storage/
 
 service nginx start
 
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start "laravel-worker:*"
+
 php-fpm -F
