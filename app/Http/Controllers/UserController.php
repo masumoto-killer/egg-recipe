@@ -25,7 +25,7 @@ class UserController extends Controller
         $forecastCycles->delete();
 
         $recentCycles = Cycle::where('user_id', $user->id)->where('cycle_end','<=',Carbon::today())->orderBy('cycle_end','desc')->take(6)->get();
-        if ($recentCycles) {
+        if (count($recentCycles) != 0) {
             $periodLengthSum = 0;
             $cycleLengthSum = 0;
             foreach ($recentCycles as $cycle) {

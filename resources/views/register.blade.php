@@ -4,7 +4,7 @@
     <div class="container d-flex align-items-start justify-content-center mt-4">
         <div class="col-xl-6 col-lg-8 col-md-10">
             <div class="card">
-                <div class="card-header text-center">{{ __('Đăng ký') }}</div>
+                <div class="card-header text-center">{{ __('Đăng ký người dùng') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -33,7 +33,7 @@
                                     document.getElementById('last_period_start').disabled = false;
                                     document.getElementById('last_period_end').disabled = true;">
                                 <label for="register_cycle_start" class="col-auto col-form-label">
-                                    {{ __('Ngày bắt đầu vỡ trứng gần nhất:') }}</label>
+                                    {{ __('Ngày bắt đầu chu kỳ gần nhất:') }}</label>
                             </div>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <input id="last_period_start" type="date" class="form-control" 
@@ -47,7 +47,7 @@
                                     document.getElementById('last_period_start').disabled = true;
                                     document.getElementById('last_period_end').disabled = false;">
                                 <label for="register_cycle_end" class="col-auto col-form-label">
-                                    {{ __('Ngày kết thúc vỡ trứng gần nhất:') }}</label>
+                                    {{ __('Ngày kết thúc chu kỳ gần nhất:') }}</label>
                             </div>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <input id="last_period_end" type="date" class="form-control" 
@@ -57,7 +57,7 @@
 
                         <div class="form-group row mb-4 justify-content-between">
                             <label for="average_cycle_length" class="col-auto col-form-label">
-                                {{ __('Chu kỳ rớt trứng bình thường:') }}</label>
+                                {{ __('Khoảng cách trung bình giữa 2 chu kỳ:') }}</label>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <div class="input-group">
                                     <input id="average_cycle_length" type="number" class="form-control" 
@@ -69,7 +69,7 @@
 
                         <div class="form-group row mb-4 justify-content-between">
                             <label for="average_period_length" class="col-auto col-form-label">
-                                {{ __('Số ngày vỡ trứng bình thường:') }}</label>
+                                {{ __('Số ngày trung bình trong 1 chu kỳ:') }}</label>
                             <div class="col-lg-4 col-md-12 col-sm-12">
                                 <div class="input-group">
                                     <input id="average_period_length" type="number" class="form-control" 

@@ -4,7 +4,7 @@
 <div class="container-md d-flex align-items-start justify-content-center my-4">
     <div class="card p-4 col-xl-6 col-lg-8 col-md-10">
         <table id="table" class="table text-center caption-top overflow-y-scroll vh-75">
-            <caption>Cập nhật đầy đủ các chu kỳ rớt trứng gần đây giúp cho việc dự báo được chính xác hơn</caption>
+            <caption>Cập nhật đầy đủ các chu kỳ gần đây giúp cho việc dự báo được chính xác hơn</caption>
             <thead>
                 <tr>
                     <th>Bắt đầu</th>
@@ -51,9 +51,9 @@
                         @csrf
                         @method('PUT')
                         <td><input type="date" class="form-control text-center"
-                            name="cycle_start" value="{{ $cycle->cycle_start }}" required max="{{ today()->format('Y-m-d') }}"></td>
+                            name="cycle_start" value="{{ $cycle->cycle_start }}" required max="{{ today() }}"></td>
                         <td><input type="date" class="form-control text-center" 
-                            name="period_stop" value="{{ $cycle->period_stop }}" required max="{{ today()->format('Y-m-d') }}"></td>
+                            name="period_stop" value="{{ $cycle->period_stop }}" required max="{{ today() }}"></td>
                         <td class="col-3">
                             <button type="submit" class="btn btn-success btn-sm save_button">
                                 <i class="bi bi-check-lg"></i></button>
